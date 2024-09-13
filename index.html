@@ -42,13 +42,13 @@
                     
                     let ct = Math.floor( $(this).get(0).currentTime);
                     
-                    function hideAllParagraphs() {
+                    function hidep() {
                         $('p').hide();
                     }
                     
                     
-                    function showParagraph(className) {
-                        hideAllParagraphs();
+                    function showing(className) {
+                        hidep();
                         $(className).show();
                     }
 
@@ -58,17 +58,17 @@
                     
                     //other methods messed with the rw and ff functions because the ct var would update but not the currentTime
                     if (ct >= 1 && ct < 5) {
-                        showParagraph('.t1');
+                        showing('.t1');
                     } else if (ct >= 5 && ct < 12) {
-                        showParagraph('.t2');
+                        showing('.t2');
                     } else if (ct >= 12 && ct < 20) {
-                        showParagraph('.t3');
+                        showing('.t3');
                     } else if (ct >= 20 && ct < 30) {
-                        showParagraph('.t4');
+                        showing('.t4');
                     } else if (ct >= 30) {
-                        showParagraph('.t5');
+                        showing('.t5');
                     } else {
-                        hideAllParagraphs();
+                        hidep();
                     };
                 });
                 
