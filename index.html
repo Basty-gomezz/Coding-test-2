@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Coding Test 2</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+        $(document).ready(function() {
+                
+                // to hide all the texts before it will show
+                $('p').hide();
+                
+                // for the fast forward and rewind buttons 
+                $('.rw').click(function() {
+                    $('.v1').get(0).currentTime -= 5;
+                })
+                
+                $('.ff').click(function() {
+                    $('.v1').get(0).currentTime += 5;
+                });
+                
+                // to play pause toggle
+                $('.play').click(function() {
+                    $(this).toggleClass('playing');
+                    
+                    if ($('.play').hasClass('playing')) {
+                        $(this).text('pause')
+                        $('.v1').get(0).play();
+                    } else {
+                        $(this).text('play')
+                        $('.v1').get(0).pause();
+                        
+                    }
+
+                    var klase = $('.play').attr("class"); 
+                    console.log(klase);
+                })
+                
+                $('.v1').on('timeupdate', function(){
+                    
+                    let ct = Math.floor( $(this).get(0).currentTime);
+                    
+                    function hideAllParagraphs() {
+                        $('p').hide();
+                    }
+                    
+                    
+                    function showParagraph(className) {
+                        hideAllParagraphs();
+                        $(className).show();
+                    }
+
+                    // initially I had one class that would move to the next using a mix of .next('p').addClass and .prev('p').removeClass
+                    // but it was too finicky and would show one after the other, then I found the className DOM thing which allows me to
+                    //get and set the value
+                    
+                    //other methods messed with the rw and ff functions because the ct var would update but not the currentTime
+                    if (ct >= 1 && ct < 5) {
+                        showParagraph('.t1');
+                    } else if (ct >= 5 && ct < 12) {
+                        showParagraph('.t2');
+                    } else if (ct >= 12 && ct < 20) {
+                        showParagraph('.t3');
+                    } else if (ct >= 20 && ct < 30) {
+                        showParagraph('.t4');
+                    } else if (ct >= 30) {
+                        showParagraph('.t5');
+                    } else {
+                        hideAllParagraphs();
+                    };
+                });
+                
+                
+                // to have it rewind to the start on ended
+                $('.v1').on('ended', function() {
+                    $(this)[0].currentTime = 0;
+                    $(this).get(0).pause();
+                    $('.play').text('play');
+                    $('.play').toggleClass('playing');
+                });
+            });
+            </script>
+
+<!-- pseudo code for texts
+
+-->
+
+</head>
+
+
+<body>
+    <section>
+        <video class="v1" src="https://mmcc.mq.edu.au/mmcc2041/resources/ct2/hermit-crab.mp4">
+            Your browser does not support HTML5. Please upgrade
+        </video>
+
+        <section>
+            <button class="rw">-5s</button>
+            <button class="play">play</button>
+            <button class="ff">+5s</button>
+        </section>
+
+        <section>
+            <p class="t1">Hermit Crabs.</p>
+            <p class="t2">Hermit crabs are decapod crustaceans of the superfamily Paguroidea. <br><br>
+                Most of the approximately 1,110 species possess an asymmetric abdomen concealed in a scavenged mollusc shell.</p>
+            <p class="t3">As hermit crabs grow, they require larger shells. Since suitable intact gastropod shells are sometimes a limited resource, vigorous competition often occurs among hermit crabs for shells.</p>
+            <p class="t4">Hermit crabs with too-small shells cannot grow as fast as those with well-fitting shells, and are more likely to be eaten else if they cannot retract completely into the shell. Therefore, as the hermit crab grows in size, it must find a larger shell and abandon the previous one.</p>
+            <p class="t5">You can read more about hermit crabs on <a href="https://en.wikipedia.org/wiki/Hermit_crab" target="_blank">Wikipedia.</a></p>
+        </section>
+    </section>
+
+
+
+</body>
+
+
+</html>
